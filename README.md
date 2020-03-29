@@ -21,3 +21,7 @@ Aggregate may be more useful than any Data Aggregate.
 The Metadata may include a record of where data is, but streamed Observation Data itself is not
 necessarily transactional - Observations shouldn't ever change (though it might be duplicated, in
 the case of multiple streams from the same Site), so not sure if that fits into CQRS / ES.
+
+Maybe there's a SiteData aggregate (or something) and it has the commands SubmitRinexFile,
+SubmitRtcmObservation, SubmitSbfFile, SubmitSbfObservation, etc. then the original data is stored
+in events and we project into the pure Observation structure.

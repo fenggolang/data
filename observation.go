@@ -29,24 +29,31 @@ type Observation struct {
 	SatelliteData     []SatelliteData
 }
 
+// TODO: Need to add some precision information which in RTCM is inferred by the MSM type
+
 type SatelliteData struct {
-	SatelliteID   int
-	// Can probably be int or some time type
+	// PRN
+	SatelliteID int
+	// Merge RoughRangeMilliseconds and and RoughRange into a float
 	RoughRangeMilliseconds uint8
 	// This is specific for each constellation
 	Extended uint8
-	// Same comment as RangeMilliseconds
-	RoughRanges     uint16
-	PhaseRangeRates int16
-	SignalData      []SignalData
+	// Consider merging rough pseudo and phase ranges (sat data) and fine ranges (sig data)
+	// into a float value in signal data
+	RoughRange     uint16
+	PhaseRangeRate int16
+	SignalData     []SignalData
 }
 
 type SignalData struct {
-	SignalID        int
-	Pseudoranges    int32
-	PhaseRanges     int32
-	PhaseRangeLocks uint16
-	HalfCycles      bool
-	CNRs            uint16
-	PhaseRangeRates int16
+	// Use some Signal type which gives frequency band and channel
+	SignalID       int
+	// See comment on SatelliteData.RoughRange
+	Pseudorange    int32
+	PhaseRange     int32
+	// Could be some time range type
+	PhaseRangeLock uint16
+	HalfCycle      bool
+	SNR            uint16
+	PhaseRangeRate int16
 }

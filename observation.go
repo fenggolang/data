@@ -1,24 +1,18 @@
 package data
 
-// TODO: Consider what package this belongs in
-
 // Observation is a normalized structure which should be able to represent any
 // format of GNSS Observable
 type Observation struct {
 	// Could put this into SatelliteData and have each constellation nested under
 	// the same "Observation" which is unique for <Epoch + ReferenceStationId>
 	Constellation string
-	// This does not seem to be correctly implemented anywhere at the moment -
-	// could use the station name instead (otherwise have the ID link to a table
-	// of ID + station name)
-	// Still can't assume that the ReferenceStationId from RTCM is correct
-	ReferenceStationID uint16
-	// TODO: normalize constellation epochs as timestamp
+	ReferenceStationID string
+	// Normalize constellation epochs as timestamp
 	Epoch uint32
-	// This can be normalized to a type - spec says 0-4 is not applied, applied,
+	// This should be normalized to a type - spec says 0-4 is not applied, applied,
 	// unknown, and reseverd
 	ClockSteeringIndicator uint8
-	// This can be normalized to a type - spec says 0-4 is internal, external
+	// This should be normalized to a type - spec says 0-4 is internal, external
 	// (locked), external (not locked), and unknown
 	ExternalClockIndicator uint8
 	// This could probably be normalized to SmoothingType - spec says true means

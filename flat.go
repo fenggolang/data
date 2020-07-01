@@ -2,14 +2,10 @@ package data
 
 import "time"
 
-// Observation is a normalized structure which should be able to represent any
-// format of GNSS Observable
-type Observation struct {
-	// Could put this into SatelliteData and have each constellation nested under
-	// the same "Observation" which is unique for <Epoch + ReferenceStationId>
-	Constellation string
+// Flat structure version - more suitable for time series DB
+type Observationx struct {
 	ReferenceStationID string
-	Epoch time.Time
+	Epoch              time.Time
 	// This should be normalized to a type - spec says 0-4 is not applied, applied,
 	// unknown, and reseverd
 	ClockSteeringIndicator uint8
@@ -21,29 +17,15 @@ type Observation struct {
 	SmoothingTypeIndicator bool
 	// Could be normalized to seconds (or null for no smoothing)
 	SmoothingInterval uint8
-	SatelliteData     []SatelliteData
-}
-
-// TODO: Need to add some precision information which in RTCM is inferred by the MSM type
-
-type SatelliteData struct {
-	// PRN
-	SatelliteID int
+	Constellation     string
+	SatelliteID       int
 	// This is specific for each constellation
-	Extended uint8
-	// Consider merging rough pseudo and phase ranges (sat data) and fine ranges (sig data)
-	// into a float value in signal data
-	// RoughRange          float64
-	// RoughPhaseRangeRate int16
-	SignalData          []SignalData
-}
-
-type SignalData struct {
+	Extended  uint8
 	Frequency string
 	Signal    string
 	// See comment on SatelliteData.RoughRange
-	Pseudorange    float64
-	PhaseRange     int32
+	Pseudorange float64
+	PhaseRange  int32
 	// Could be some time range type
 	PhaseRangeLock uint16
 	HalfCycle      bool

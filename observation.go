@@ -38,7 +38,7 @@ type SatelliteData struct {
 type SignalData struct {
 	Frequency   string
 	Signal      string
-	Pseudorange float64 // km
+	Pseudorange float64 // m
 	PhaseRange  int32   // ??
 	// TODO: This requires a lookup table - Could be some time range type
 	PhaseRangeLock uint16

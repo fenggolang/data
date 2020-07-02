@@ -149,7 +149,7 @@ func MessageNumberToConstellation(messageNumber int) string {
 func Pseudorange(roughRangeMillis uint8, roughRange uint16, fineRange int32) float64 {
 	// TODO: This is irreversible - find out whether the satellite data rough ranges are truly different observations
 	// to the signal data fine ranges
-	return ((float64(roughRangeMillis) + (float64(roughRange) * math.Pow(2, -10)) + (float64(fineRange) * math.Pow(2, -29))) * 299792.458) / 1000
+	return ((float64(roughRangeMillis) + (float64(roughRange) * math.Pow(2, -10)) + (float64(fineRange) * math.Pow(2, -29))) * 299792.458) /// 1000
 }
 
 func ObservationMsm7(msg rtcm3.MessageMsm7) (obs data.Observation, err error) {

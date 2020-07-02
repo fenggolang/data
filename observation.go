@@ -7,9 +7,9 @@ import "time"
 type Observation struct {
 	// Could put this into SatelliteData and have each constellation nested under
 	// the same "Observation" which is unique for <Epoch + ReferenceStationId>
-	Constellation string
+	Constellation      string
 	ReferenceStationID string
-	Epoch time.Time
+	Epoch              time.Time
 	// This should be normalized to a type - spec says 0-4 is not applied, applied,
 	// unknown, and reseverd
 	ClockSteeringIndicator uint8
@@ -25,28 +25,24 @@ type Observation struct {
 }
 
 // TODO: Need to add some precision information which in RTCM is inferred by the MSM type
-
+// TODO: Find out whether the MSM SatelliteData rough ranges and the SignalData fine ranges are separate observations -
+// because merging them into a single value (as we have done) is irreversible.
 type SatelliteData struct {
 	// PRN
 	SatelliteID int
 	// This is specific for each constellation
-	Extended uint8
-	// Consider merging rough pseudo and phase ranges (sat data) and fine ranges (sig data)
-	// into a float value in signal data
-	// RoughRange          float64
-	// RoughPhaseRangeRate int16
-	SignalData          []SignalData
+	Extended   uint8
+	SignalData []SignalData
 }
 
 type SignalData struct {
-	Frequency string
-	Signal    string
-	// See comment on SatelliteData.RoughRange
-	Pseudorange    float64
-	PhaseRange     int32
-	// Could be some time range type
+	Frequency   string
+	Signal      string
+	Pseudorange float64 // km
+	PhaseRange  int32   // ??
+	// TODO: This requires a lookup table - Could be some time range type
 	PhaseRangeLock uint16
 	HalfCycle      bool
-	SNR            uint16
-	PhaseRangeRate int16
+	SNR            float64 // dB-Hz
+	PhaseRangeRate float64 // m/s
 }

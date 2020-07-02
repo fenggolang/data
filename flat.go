@@ -23,12 +23,11 @@ type Observationx struct {
 	Extended  uint8
 	Frequency string
 	Signal    string
-	// See comment on SatelliteData.RoughRange
 	Pseudorange float64
 	PhaseRange  int32
 	// Could be some time range type
 	PhaseRangeLock uint16
 	HalfCycle      bool
-	SNR            uint16
-	PhaseRangeRate int16
+	SNR            float64
+	PhaseRangeRate float64
 }

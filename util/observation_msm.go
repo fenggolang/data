@@ -1,6 +1,6 @@
 package util
 
-// TODO: Consider what package this belongs in
+// TODO: Consider what package this belongs in (rtcm?)
 
 import (
 	"math"
@@ -148,7 +148,7 @@ func MessageNumberToConstellation(messageNumber int) string {
 // SpeedOfLightPerMillisecond / 1000
 func Pseudorange(roughRangeMillis uint8, roughRange uint16, fineRange int32) float64 {
 	// TODO: This is irreversible - find out whether the satellite data rough ranges are truly different observations
-	// to the signal data fine ranges
+	// to the signal data fine ranges - or if they're split up for RTCM's sake
 	return ((float64(roughRangeMillis) + (float64(roughRange) * math.Pow(2, -10)) + (float64(fineRange) * math.Pow(2, -29))) * 299792.458) /// 1000
 }
 
@@ -191,13 +191,13 @@ func ObservationMsm7(msg rtcm3.MessageMsm7) (obs data.Observation, err error) {
 		for _, sigID := range sigIDs {
 			if cellIDs[cellPos] {
 				satData.SignalData = append(satData.SignalData, data.SignalData{
-					Frequency: signals[obs.Constellation][sigID].frequency,
-					Signal:    signals[obs.Constellation][sigID].signal,
+					Band: signals[obs.Constellation][sigID].frequency,
+					Frequency: signals[obs.Constellation][sigID].signal,
 					Pseudorange: Pseudorange(
 						msg.SatelliteData.RangeMilliseconds[i],
 						msg.SatelliteData.Ranges[i],
 						msg.SignalData.Pseudoranges[sigPos]),
-					PhaseRange:     msg.SignalData.PhaseRanges[sigPos],
+					PhaseRange:     float64(msg.SignalData.PhaseRanges[sigPos]) * math.Pow(2, -31),
 					PhaseRangeLock: msg.SignalData.PhaseRangeLocks[sigPos],
 					HalfCycle:      msg.SignalData.HalfCycles[sigPos],
 					SNR:            float64(msg.SignalData.Cnrs[sigPos]) * math.Pow(2, -4),

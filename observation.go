@@ -11,7 +11,7 @@ type Observation struct {
 	ReferenceStationID string
 	Epoch              time.Time
 	// This should be normalized to a type - spec says 0-4 is not applied, applied,
-	// unknown, and reseverd
+	// unknown, and reserved
 	ClockSteeringIndicator uint8
 	// This should be normalized to a type - spec says 0-4 is internal, external
 	// (locked), external (not locked), and unknown
@@ -36,10 +36,10 @@ type SatelliteData struct {
 }
 
 type SignalData struct {
+	Band        string
 	Frequency   string
-	Signal      string
 	Pseudorange float64 // m
-	PhaseRange  int32   // ??
+	PhaseRange  float64 // ??
 	// TODO: This requires a lookup table - Could be some time range type
 	PhaseRangeLock uint16
 	HalfCycle      bool

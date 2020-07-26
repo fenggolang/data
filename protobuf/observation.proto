@@ -1,0 +1,41 @@
+syntax = "proto3";
+package data;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/go-gnss/data/internal/observations/domain/model";
+
+enum Constellation {
+  GPS = 0;
+  GLONASS = 1;
+  GALILEO = 2;
+  SBAS = 3;
+  QZSS = 4;
+  BEIDOU = 5;
+}
+
+message SatelliteData {
+  uint32 satelliteId = 1;
+  // TODO: Consider putting satelliteID in SignalData and removing SatelliteData
+  SignalData signalData = 2;
+  // Ignoring Extended
+}
+
+message SignalData {
+  string band = 1;
+  string frequency = 2;
+  float pseudorange = 3;
+  float phaseRange = 4;
+  uint32 phaseRangeLock = 5;
+  bool halfCycle = 6;
+  float snr = 7;
+  float phaseRangeRate = 8;
+}
+
+message ObservationSet {
+  google.protobuf.Timestamp epoch = 1;
+  string referenceStationId = 2;
+  Constellation constellation = 3;
+  // Ignoring Clock Indicators
+  SatelliteData satelliteData = 4;
+}

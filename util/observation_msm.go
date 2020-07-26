@@ -147,8 +147,8 @@ func MessageNumberToConstellation(messageNumber int) string {
 // SatelliteData[x].SignalData[y].Pseudorange * math.Pow(2, -29) *
 // SpeedOfLightPerMillisecond / 1000
 func Pseudorange(roughRangeMillis uint8, roughRange uint16, fineRange int32) float64 {
-	// TODO: This is irreversible - find out whether the satellite data rough ranges are truly different observations
-	// to the signal data fine ranges - or if they're split up for RTCM's sake
+	// TODO: This is irreversible - find out whether the satellite observations rough ranges are truly different observations
+	// to the signal observations fine ranges - or if they're split up for RTCM's sake
 	return ((float64(roughRangeMillis) + (float64(roughRange) * math.Pow(2, -10)) + (float64(fineRange) * math.Pow(2, -29))) * 299792.458) /// 1000
 }
 

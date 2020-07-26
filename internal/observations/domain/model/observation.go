@@ -1,15 +1,15 @@
-package data
+package model
 
 import "time"
 
 // Observation is a normalized structure which should be able to represent any
 // format of GNSS Observable
 type Observation struct {
+	Epoch              time.Time
+	ReferenceStationID string
 	// Could put this into SatelliteData and have each constellation nested under
 	// the same "Observation" which is unique for <Epoch + ReferenceStationId>
-	Constellation      string
-	ReferenceStationID string
-	Epoch              time.Time
+	Constellation string
 	// This should be normalized to a type - spec says 0-4 is not applied, applied,
 	// unknown, and reserved
 	ClockSteeringIndicator uint8

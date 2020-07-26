@@ -33,6 +33,8 @@ github.com/ghodss/yaml v1.0.0/go.mod h1:4dBDuWmgqj2HViK6kFavaiC9ZROes6MMH2rRYeME
 github.com/go-chi/chi v4.0.2+incompatible/go.mod h1:eB3wogJHnLi3x/kFX2A+IbTBlXxmMeXJVKy9tTv1XzQ=
 github.com/go-gnss/ntrip v0.0.0-20200406053254-a4467bfee793 h1:h/v9dhFgcCIyhaQHLbd7kzEIV3V1G2aIjxqwcXyzATs=
 github.com/go-gnss/ntrip v0.0.0-20200406053254-a4467bfee793/go.mod h1:2WGh2w0xlcrCxUX/ZU4P79dDnVYjJ4HFBmwLMOB2H3U=
+github.com/go-gnss/rinex v0.0.0-20200426131919-7e9b4081bf9d h1:W6/7j75JoiJizX3NNrotlffV8+AahYRpm4tLfXyfGw4=
+github.com/go-gnss/rinex v0.0.0-20200426131919-7e9b4081bf9d/go.mod h1:Xg0DigcjBYEAvFKwZSRF/5oAFLiH+TAAKgfpk5f1EIY=
 github.com/go-gnss/rtcm v0.0.0-20200519053333-5be076498b66 h1:FVEh5CKXoDqPYD3HVqRt+6d36ibMqfNBiCn8EcUqo28=
 github.com/go-gnss/rtcm v0.0.0-20200519053333-5be076498b66/go.mod h1:4IhJTprRKEqgz+XdNngnJ3dwrcS+UzRDy0oCtCnipb0=
 github.com/go-kit/kit v0.8.0/go.mod h1:xBxKIO96dXMWWy0MnWVtmwkA9/13aqxPnvrjFYMA2as=

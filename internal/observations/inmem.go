@@ -1,18 +1,18 @@
 package main
 
 import (
-	"observations/domain/model"
+	"github.com/go-gnss/data/protobuf"
 )
 
 type InMemoryRepository struct {
-	obs []*model.Observation
+	obs []*protobuf.ObservationSet
 }
 
-func (r *InMemoryRepository) Store(observation *model.Observation) error {
+func (r *InMemoryRepository) Store(observation *protobuf.ObservationSet) error {
 	r.obs = append(r.obs, observation)
 	return nil
 }
 
-func (r *InMemoryRepository) GetAllObservations() ([]*model.Observation, error) {
+func (r *InMemoryRepository) GetAllObservations() ([]*protobuf.ObservationSet, error) {
 	return r.obs, nil
 }

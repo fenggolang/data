@@ -3,7 +3,7 @@ package main
 // TODO: Where does this code belong? Where do we put domain interfaces vs implementations?
 
 import (
-	"observations/domain/model"
+	"github.com/go-gnss/data/protobuf"
 )
 
 type InfluxRepository struct {
@@ -22,6 +22,6 @@ func NewInfluxRepository(host, org, bucket, token string) InfluxRepository {
 	}
 }
 
-func (repo InfluxRepository) Store(observation model.Observation) error {
+func (repo InfluxRepository) Store(observation protobuf.ObservationSet) error {
 	return nil
 }

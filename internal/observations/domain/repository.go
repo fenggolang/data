@@ -1,10 +1,10 @@
 package domain
 
 import (
-	"observations/domain/model"
+	"github.com/go-gnss/data/protobuf"
 )
 
 type ObservationRepository interface {
-	Store(observation *model.Observation) error
-	GetAllObservations() ([]*model.Observation, error) // Garbage example
+	Store(observation *protobuf.ObservationSet) error
+	GetAllObservations() ([]*protobuf.ObservationSet, error) // Garbage example
 }

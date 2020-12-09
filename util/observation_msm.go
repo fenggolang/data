@@ -140,16 +140,18 @@ func MessageNumberToConstellation(messageNumber int) string {
 	return "" // TODO
 }
 
-// Converting rough ranges into pseduorange in KMs
+// Converting rough ranges into pseduorange in meters
 //   e.g. ((84 + (220 * math.Pow(2, -10)) + (121087 * math.Pow(2, -29))) * 299792.458) / 1000
 // SatelliteData[x].RoughRangeMilliseconds +
 // SatelliteData[x].RoughRange * math.Pow(2, -10) +
 // SatelliteData[x].SignalData[y].Pseudorange * math.Pow(2, -29) *
-// SpeedOfLightPerMillisecond / 1000
+// SpeedOfLightPerMillisecond
 func Pseudorange(roughRangeMillis uint8, roughRange uint16, fineRange int32) float64 {
 	// TODO: This is irreversible - find out whether the satellite observations rough ranges are truly different observations
 	// to the signal observations fine ranges - or if they're split up for RTCM's sake
-	return ((float64(roughRangeMillis) + (float64(roughRange) * math.Pow(2, -10)) + (float64(fineRange) * math.Pow(2, -29))) * 299792.458) /// 1000
+	return (float64(roughRangeMillis) +
+		(float64(roughRange) * math.Pow(2, -10)) +
+		(float64(fineRange) * math.Pow(2, -29))) * 299792.458
 }
 
 func ObservationMsm7(msg rtcm3.MessageMsm7) (obs data.Observation, err error) {
@@ -191,7 +193,7 @@ func ObservationMsm7(msg rtcm3.MessageMsm7) (obs data.Observation, err error) {
 		for _, sigID := range sigIDs {
 			if cellIDs[cellPos] {
 				satData.SignalData = append(satData.SignalData, data.SignalData{
-					Band: signals[obs.Constellation][sigID].frequency,
+					Band:      signals[obs.Constellation][sigID].frequency,
 					Frequency: signals[obs.Constellation][sigID].signal,
 					Pseudorange: Pseudorange(
 						msg.SatelliteData.RangeMilliseconds[i],
